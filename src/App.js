@@ -3,13 +3,13 @@ import coldBg from "./assets/cold.jpg";
 import sunSet from "./assets/sunset.jpg";
 import Descriptions from "./components/Descriptions";
 import { useEffect, useState } from "react";
-import { getCurrentWeatherData, getForecastData } from "./weatherEngine"; // Import the getForecastData function
+import { getCurrentWeatherData, getForecastData } from "./weatherEngine"; 
 import Forecast from "./components/Forecast";
 import TimeAndDate from "./components/TimeAndDate";
 
 function App() {
   const [weather, setWeather] = useState(null);
-  const [forecast, setForecast] = useState([]); // Add state for forecast data
+  const [forecast, setForecast] = useState([]); 
   const [city, setCity] = useState(null);
   const [bg, setBg] = useState(sunSet);
   const [currentLocation, setCurrentLocation] = useState(null);
@@ -33,7 +33,6 @@ function App() {
       if (data.temp <= threshold) setBg(coldBg);
       else setBg(hotBg);
 
-      // Call the getForecastData function and set the forecast state with the result
       const forecastData = await getForecastData(city);
       setForecast(forecastData);
     };
