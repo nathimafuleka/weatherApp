@@ -3,13 +3,14 @@ import coldBg from "./assets/cold.jpg";
 import sunSet from "./assets/sunset.jpg";
 import Descriptions from "./components/Descriptions";
 import { useEffect, useState } from "react";
-import { getFormattedWeatherData } from "./weatherEngine";
-import TimeAndDate from "./components/TimeAndDate";
+import { getCurrentWeatherData, getForecastData } from "./weatherEngine"; // Import the getForecastData function
 import Forecast from "./components/Forecast";
+import TimeAndDate from "./components/TimeAndDate";
 
 function App() {
   const [weather, setWeather] = useState(null);
-  const [zip, setZip] = useState(null);
+  const [forecast, setForecast] = useState([]); // Add state for forecast data
+  const [city, setCity] = useState(null);
   const [bg, setBg] = useState(sunSet);
   const [currentLocation, setCurrentLocation] = useState(null);
 
@@ -18,12 +19,12 @@ function App() {
       let data;
 
       if (currentLocation) {
-        data = await getFormattedWeatherData(
+        data = await getCurrentWeatherData(
           currentLocation.lat,
           currentLocation.lon
         );
       } else {
-        data = await getFormattedWeatherData(zip);
+        data = await getCurrentWeatherData(city);
       }
 
       setWeather(data);
@@ -31,17 +32,21 @@ function App() {
       const threshold = "metric" ? 20 : 60;
       if (data.temp <= threshold) setBg(coldBg);
       else setBg(hotBg);
+
+      // Call the getForecastData function and set the forecast state with the result
+      const forecastData = await getForecastData(city);
+      setForecast(forecastData);
     };
 
     fetchWeatherData();
-  }, [zip, currentLocation]);
+  }, [city, currentLocation]);
 
   const enterKeyPressed = (e) => {
     if (e.keyCode === 13) {
       if (currentLocation) {
         setCurrentLocation(null);
       }
-      setZip(e.currentTarget.value);
+      setCity(e.currentTarget.value);
       e.currentTarget.blur();
     }
   };
@@ -75,10 +80,10 @@ function App() {
               name="zip"
               placeholder="Search using city or zip code and press enter"
             />
+              <TimeAndDate />
           </div>
           {weather && (
             <>
-              <TimeAndDate />
               <div className="section section__temperature">
                 <div className="icon">
                   <h3>{`${weather.name}, ${weather.country}`}</h3>
@@ -90,9 +95,9 @@ function App() {
                 </div>
               </div>
               <Descriptions weather={weather} />
-              <hr className="line"/>
-              <h3>Daily Forecast</h3>
-              <Forecast weather={weather} />
+              <hr className="line" />
+              <h2 className="section__heading"> Daily Forecast</h2>
+              <Forecast forecast={forecast} />
             </>
           )}
         </div>
