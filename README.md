@@ -1,12 +1,15 @@
-# Getting Started with Create React App
+# Weather App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## How to run the program
 
-## Available Scripts
+1. Download the files, and unzip the file.
+2. In your IDE open the file and cd to the project directory.:
 
-In the project directory, you can run:
+### `Dependancies to install`
 
-### `npm start`
+```
+npm install react-icons --save
+```
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
