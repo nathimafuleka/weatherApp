@@ -1,6 +1,6 @@
 .section__forecast {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 0.5rem;
 }
 
@@ -35,7 +35,9 @@
         grid-template-columns: 1fr 1fr;
     }
 }
-.header{
-    display: flex;
-    margin: auto;
+.section__heading{
+    margin: 0;
+    padding: 0;
+    color: #fff6f6;
+    font-weight: 700;
 }
