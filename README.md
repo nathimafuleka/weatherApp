@@ -1,4 +1,4 @@
-# Weather App
+# ReactJS Weather App Project
 
 ## How to run the program
 
